@@ -3,7 +3,7 @@ from websockets.server import serve, WebSocketServerProtocol
 
 
 HOST = "0.0.0.0"
-PORT = 443
+PORT = 80
 
 
 async def echo(websocket: WebSocketServerProtocol):
