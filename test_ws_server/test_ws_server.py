@@ -1,5 +1,6 @@
 import asyncio
 import redis.asyncio as redis
+import ssl
 import websockets
 
 HOST = "0.0.0.0"
@@ -37,6 +38,7 @@ async def credential_checker(username: str, password: str) -> bool:
 
 
 async def main():
+	ssl_context = ssl.create_default_context(purpose=ssl.PROTOCOL_TLS_SERVER)
 	r = await redis.from_url("redis://redis")
 	async with r.pubsub() as pubsub:
 		await pubsub.subscribe("channel:1")
@@ -46,7 +48,8 @@ async def main():
 				create_protocol=websockets.basic_auth_protocol_factory(
 					realm="ritual",
 					check_credentials=credential_checker,
-				)
+				),
+				ssl=ssl_context,
 		):
 			await future
 
