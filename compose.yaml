@@ -1,6 +1,5 @@
 services:
   test-ws:
-    container_name: test-ws
     build: ./test_ws_server
     networks:
       - proxy
