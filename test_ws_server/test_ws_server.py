@@ -33,7 +33,6 @@ async def reader(channel: redis.client.PubSub):
 
 
 async def main():
-	await asyncio.sleep(4)
 	print("Connecting:")
 	r = await redis.from_url("redis://redis")
 	async with r.pubsub() as pubsub:

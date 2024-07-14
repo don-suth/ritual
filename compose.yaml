@@ -8,6 +8,7 @@ services:
     build: ./test_ws_server
     networks:
       - proxy
+      - backend
     depends_on:
       - redis
     labels:
