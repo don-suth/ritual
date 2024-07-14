@@ -1,5 +1,3 @@
-version: "3.1"
-
 services:
   test-ws:
     container_name: test-ws
