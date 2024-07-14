@@ -32,13 +32,22 @@ async def reader(channel: redis.client.PubSub):
 			websockets.broadcast(CONNECTIONS, message=message["data"].decode())
 
 
+async def credential_checker(username: str, password: str) -> bool:
+	return password == username
+
+
 async def main():
-	print("Connecting:")
 	r = await redis.from_url("redis://redis")
 	async with r.pubsub() as pubsub:
 		await pubsub.subscribe("channel:1")
 		future = asyncio.create_task(reader(pubsub))
-		async with websockets.serve(register, HOST, PORT):
+		async with websockets.serve(
+				register, HOST, PORT,
+				create_protocol=websockets.basic_auth_protocol_factory(
+					realm="ritual",
+					check_credentials=credential_checker,
+				)
+		):
 			await future
 
 asyncio.run(main())
