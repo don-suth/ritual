@@ -38,7 +38,7 @@ async def credential_checker(username: str, password: str) -> bool:
 
 
 async def main():
-	ssl_context = ssl.create_default_context(purpose=ssl.PROTOCOL_TLS_SERVER)
+	ssl_context = ssl.create_default_context()
 	r = await redis.from_url("redis://redis")
 	async with r.pubsub() as pubsub:
 		await pubsub.subscribe("channel:1")
