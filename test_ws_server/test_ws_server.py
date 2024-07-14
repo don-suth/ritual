@@ -2,6 +2,10 @@ import asyncio
 from websockets.server import serve, WebSocketServerProtocol
 
 
+HOST = "0.0.0.0"
+POST = 80
+
+
 async def echo(websocket: WebSocketServerProtocol):
 	print(f"Someone connected: ")
 	
@@ -18,7 +22,7 @@ async def echo(websocket: WebSocketServerProtocol):
 
 
 async def main():
-	async with serve(echo):
+	async with serve(echo, HOST, PORT):
 		await asyncio.Future()
 
 
