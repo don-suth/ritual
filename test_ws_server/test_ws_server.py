@@ -33,9 +33,9 @@ async def reader(channel: redis.client.PubSub):
 
 
 async def main():
-	await asyncio.sleep(10)
+	await asyncio.sleep(4)
 	print("Connecting:")
-	r = await redis.from_url("redis://redis:6379")
+	r = await redis.from_url("redis://redis")
 	async with r.pubsub() as pubsub:
 		await pubsub.subscribe("channel:1")
 		future = asyncio.create_task(reader(pubsub))
