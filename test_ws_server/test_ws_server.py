@@ -20,3 +20,6 @@ async def echo(websocket: WebSocketServerProtocol):
 async def main():
 	async with serve(echo):
 		await asyncio.Future()
+
+
+asyncio.run(main())
