@@ -29,6 +29,8 @@ services:
       - traefik.http.services.test-ws-websecure.loadbalancer.server.port=80
     secrets:
       - roleplay_server_password
+    volumes:
+      - /mnt/persistent/roleplay/server_state/:/app/state/
 
 networks:
   proxy:
