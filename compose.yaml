@@ -4,8 +4,8 @@ services:
     networks:
       - backend
 
-  test-ws:
-    build: ./test_ws_server
+  roleplay-server:
+    build: ./roleplay_for_life/server
     networks:
       - proxy
       - backend
