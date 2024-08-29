@@ -27,8 +27,14 @@ services:
       - traefik.http.routers.test-ws-websecure.entrypoints=websecure
       # Port
       - traefik.http.services.test-ws-websecure.loadbalancer.server.port=80
+    secrets:
+      - roleplay_server_password
 
 networks:
   proxy:
     external: true
   backend:
+
+secrets:
+  roleplay_server_password:
+    file: roleplay_for_life/secrets/password
