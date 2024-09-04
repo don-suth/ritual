@@ -1,5 +1,37 @@
 services:
-  # Phylactery goes here
+  # Phylactery
+  phylactery:
+    build: ./phylactery
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - proxy
+      - backend
+    labels:
+      # Traefik:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      # Redirect http to https
+      - traefik.http.middlewares.phylactery-redirect-websecure.redirectscheme.scheme=https
+      - traefik.http.routers.phylactery-web.middlewares=phylactery-redirect-websecure
+      - traefik.http.routers.phylactery-web.rule=Host("beta.phylactery.gozz.id.au")
+      - traefik.http.routers.phylactery-web.entrypoints=web
+      # Accept https with letsencrypt
+      - traefik.http.routers.phylactery-websecure.rule=Host("beta.phylactery.gozz.id.au")
+      - traefik.http.routers.phylactery-websecure.tls.certresolver=letsencrypt
+      - traefik.http.routers.phylactery-websecure.tls=true
+      - traefik.http.routers.phylactery-websecure.entrypoints=websecure
+      # Port
+      - traefik.http.services.phylactery-websecure.loadbalancer.server.port=80
+    secrets:
+      - django_secret_key
+      - ucc_email_password
+      - postgres_password
+    volumes:
+      # Settings here
+      - /mnt/persistent/ritual/media/:/app/media
+    restart: always
 
   redis:
     image: redis:alpine
