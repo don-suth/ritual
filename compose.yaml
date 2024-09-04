@@ -28,6 +28,8 @@ services:
       - django_secret_key
       - ucc_email_password
       - postgres_password
+    env_file:
+      - ./default.env
     volumes:
       # Settings here
       - /mnt/persistent/ritual/media/:/app/media
