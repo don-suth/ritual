@@ -31,7 +31,7 @@ services:
     env_file:
       - ./default.env
     volumes:
-      # Settings here
+      - ./settings_override.py:/app/phylactery/settings_override.py
       - /mnt/persistent/ritual/media/:/app/media
     restart: always
 
