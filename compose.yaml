@@ -30,4 +30,12 @@ networks:
     external: true
   backend:
 
-# Secrets go here
+secrets:
+  django_secret_key:
+    file: secrets/django_secret_key.secret
+  ucc_email_password:
+    file: secrets/ucc_email_password.secret
+  postgres_password:
+    file: secrets/postgres_password.secret
+  discord_bot_token:
+    file: secrets/discord_bot_token.secret
