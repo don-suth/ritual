@@ -1,43 +1,31 @@
 services:
+  # Phylactery goes here
+
   redis:
     image: redis:alpine
     networks:
       - backend
-
-  roleplay-server:
-    build: ./roleplay_for_life/server
-    networks:
-      - proxy
-      - backend
-    depends_on:
-      - redis
-    labels:
-      # Traefik
-      - traefik.enable=true
-      - traefik.docker.network=proxy
-      # Redirect http to https
-      - traefik.http.middlewares.test-ws-redirect-websecure.redirectscheme.scheme=https
-      - traefik.http.routers.test-ws-web.middlewares=test-ws-redirect-websecure
-      - traefik.http.routers.test-ws-web.rule=Host("ritual.gozz.id.au")
-      - traefik.http.routers.test-ws-web.entrypoints=web
-      # Accept https with letsencrypt
-      - traefik.http.routers.test-ws-websecure.rule=Host("ritual.gozz.id.au")
-      - traefik.http.routers.test-ws-websecure.tls.certresolver=letencrypt
-      - traefik.http.routers.test-ws-websecure.tls=true
-      - traefik.http.routers.test-ws-websecure.entrypoints=websecure
-      # Port
-      - traefik.http.services.test-ws-websecure.loadbalancer.server.port=80
-    secrets:
-      - roleplay_server_password
-    volumes:
-      - /mnt/persistent/roleplay/server_state/:/app/state/
     restart: always
+
+  # Postgres
+  postgres:
+    image: postgres:latest
+    networks:
+      - backend
+    volumes:
+      - /mnt/persistent/ritual/database/:/var/lib/postgresql/data
+    restart: always
+
+  # Lich goes here
+
+  # Phantasm goes here
+
+  # Celery / Something Else goes here
+
 
 networks:
   proxy:
     external: true
   backend:
 
-secrets:
-  roleplay_server_password:
-    file: roleplay_for_life/secrets/password
+# Secrets go here
