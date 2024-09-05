@@ -28,6 +28,7 @@ services:
       - django_secret_key
       - ucc_email_password
       - postgres_password
+      - discord_oauth_token
     env_file:
       - ./default.env
     volumes:
@@ -75,3 +76,5 @@ secrets:
     file: secrets/postgres_password.secret
   discord_bot_token:
     file: secrets/discord_bot_token.secret
+  discord_oauth_token:
+    file: secrets/discord_oauth_token.secret

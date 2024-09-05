@@ -20,3 +20,14 @@ DATABASES = {
 	}
 }
 
+# For linking Discord accounts
+SOCIALACCOUNT_PROVIDERS = {
+	"discord": {
+		"APPS": [
+			{
+				"client_id": "934080121881649233",
+				"secret": get_docker_secret("discord_oauth_token", safe=False),
+			}
+		]
+	}
+}
