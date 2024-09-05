@@ -4,6 +4,10 @@ from environs import Env
 env = Env()
 env.read_env()
 
+# Allowed Hosts
+ALLOWED_HOSTS = [
+	"beta.phylactery.gozz.id.au",
+]
 
 # Django Secret Key
 SECRET_KEY = get_docker_secret("django_secret_key", safe=False)
