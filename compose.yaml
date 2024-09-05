@@ -1,7 +1,7 @@
 services:
   # Phylactery
   phylactery:
-    build: ./phylactery
+    build: ./phylactery_2
     depends_on:
       - redis
       - postgres
