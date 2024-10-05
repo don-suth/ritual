@@ -60,6 +60,45 @@ services:
   # Phantasm goes here
 
   # Celery / Something Else goes here
+  celery-worker:
+    build: ./phylactery_2
+    command: celery --app=phylactery.celery_app:app worker -l INFO
+    depends_on:
+      - phylactery
+      - postgres
+      - redis
+    env_file:
+      - ./default.env
+    secrets:
+      - django_secret_key
+      - postgres_password
+      - ucc_email_password
+      - discord_oauth_token
+    volumes:
+      - ./settings_override.py:/app/phylactery/settings_override.py
+    networks:
+      - backend
+    restart: always
+
+  celery-beat:
+    build: ./phylactery_2
+    command: celery --app=phylactery.celery_app:app beat -l INFO
+    depends_on:
+      - phylactery
+      - postgres
+      - redis
+    env_file:
+      - ./default.env
+    secrets:
+      - django_secret_key
+      - postgres_password
+      - ucc_email_password
+      - discord_oauth_token
+    volumes:
+      - ./settings_override.py:/app/phylactery/settings_override.py
+    networks:
+      - backend
+    restart: always
 
 
 networks:
