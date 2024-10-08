@@ -19,7 +19,7 @@ EMAIL_HOST = 'submission.ucc.asn.au'
 EMAIL_HOST_USER = 'unigames'
 EMAIL_HOST_PASSWORD = get_docker_secret('ucc_email_password', safe=False)
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'unigames@ucc.asn.au'
+DEFAULT_FROM_EMAIL = 'Unigames <unigames@ucc.asn.au>'
 
 # Database
 DATABASES = {
