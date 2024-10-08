@@ -6,7 +6,7 @@ env.read_env()
 
 # Allowed Hosts
 ALLOWED_HOSTS = [
-	"beta.phylactery.gozz.id.au",
+	"unigames.asn.au",
 ]
 
 # Django Secret Key

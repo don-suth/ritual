@@ -15,10 +15,10 @@ services:
       # Redirect http to https
       - traefik.http.middlewares.phylactery-redirect-websecure.redirectscheme.scheme=https
       - traefik.http.routers.phylactery-web.middlewares=phylactery-redirect-websecure
-      - traefik.http.routers.phylactery-web.rule=Host("beta.phylactery.gozz.id.au")
+      - traefik.http.routers.phylactery-web.rule=Host("unigames.asn.au")
       - traefik.http.routers.phylactery-web.entrypoints=web
       # Accept https with letsencrypt
-      - traefik.http.routers.phylactery-websecure.rule=Host("beta.phylactery.gozz.id.au")
+      - traefik.http.routers.phylactery-websecure.rule=Host("unigames.asn.au")
       - traefik.http.routers.phylactery-websecure.tls.certresolver=letsencrypt
       - traefik.http.routers.phylactery-websecure.tls=true
       - traefik.http.routers.phylactery-websecure.entrypoints=websecure
