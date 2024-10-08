@@ -12,6 +12,14 @@ ALLOWED_HOSTS = [
 # Django Secret Key
 SECRET_KEY = get_docker_secret("django_secret_key", safe=False)
 
+# Email Settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'submission.ucc.asn.au'
+EMAIL_HOST_USER = 'unigames'
+EMAIL_HOST_PASSWORD = get_docker_secret('ucc_email_password', safe=False)
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'unigames@ucc.asn.au'
+
 # Database
 DATABASES = {
 	"default": {
