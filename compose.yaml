@@ -56,6 +56,19 @@ services:
     restart: always
 
   # Lich goes here
+  lich:
+    build: ./lich
+    depends_on:
+      - phylactery
+      - postgres
+      - redis
+    env_file:
+      - ./default.env
+    secrets:
+      - discord_bot_token
+    networks:
+      - proxy
+      - backend
 
   # Phantasm goes here
 
