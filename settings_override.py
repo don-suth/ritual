@@ -13,6 +13,7 @@ ALLOWED_HOSTS = [
 SECRET_KEY = get_docker_secret("django_secret_key", safe=False)
 
 # Email Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'submission.ucc.asn.au'
 EMAIL_HOST_USER = 'unigames'
