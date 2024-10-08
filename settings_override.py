@@ -4,6 +4,8 @@ from environs import Env
 env = Env()
 env.read_env()
 
+DEBUG = False
+
 # Allowed Hosts
 ALLOWED_HOSTS = [
 	"unigames.asn.au",
