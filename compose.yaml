@@ -66,6 +66,7 @@ services:
       - ./default.env
     secrets:
       - discord_bot_token
+      - discord_bot_guilds
     networks:
       - proxy
       - backend
