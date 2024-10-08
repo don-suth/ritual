@@ -128,5 +128,7 @@ secrets:
     file: secrets/postgres_password.secret
   discord_bot_token:
     file: secrets/discord_bot_token.secret
+  discord_bot_guilds:
+    file: secrets/discord_bot_guilds.secret
   discord_oauth_token:
     file: secrets/discord_oauth_token.secret
