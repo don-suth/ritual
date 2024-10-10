@@ -70,6 +70,7 @@ services:
     networks:
       - proxy
       - backend
+    restart: always
 
   # Phantasm goes here
 
