@@ -77,7 +77,7 @@ services:
   # Celery / Something Else goes here
   celery-worker:
     build: ./phylactery_2
-    command: celery -A phylactery worker -l INFO
+    command: sh -c "python manage.py collectstatic --noinput && celery -A phylactery worker -l INFO"
     depends_on:
       - phylactery
       - postgres
@@ -97,7 +97,7 @@ services:
 
   celery-beat:
     build: ./phylactery_2
-    command: celery -A phylactery beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    command: sh -c "python manage.py collectstatic --noinput && celery -A phylactery beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
     depends_on:
       - phylactery
       - postgres
