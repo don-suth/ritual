@@ -15,10 +15,10 @@ services:
       # Redirect http to https
       - traefik.http.middlewares.phylactery-redirect-websecure.redirectscheme.scheme=https
       - traefik.http.routers.phylactery-web.middlewares=phylactery-redirect-websecure
-      - traefik.http.routers.phylactery-web.rule=Host("beta.phylactery.gozz.id.au")
+      - traefik.http.routers.phylactery-web.rule=Host("unigames.asn.au")
       - traefik.http.routers.phylactery-web.entrypoints=web
       # Accept https with letsencrypt
-      - traefik.http.routers.phylactery-websecure.rule=Host("beta.phylactery.gozz.id.au")
+      - traefik.http.routers.phylactery-websecure.rule=Host("unigames.asn.au")
       - traefik.http.routers.phylactery-websecure.tls.certresolver=letsencrypt
       - traefik.http.routers.phylactery-websecure.tls=true
       - traefik.http.routers.phylactery-websecure.entrypoints=websecure
@@ -56,10 +56,64 @@ services:
     restart: always
 
   # Lich goes here
+  lich:
+    build: ./lich
+    depends_on:
+      - phylactery
+      - postgres
+      - redis
+    env_file:
+      - ./default.env
+    secrets:
+      - discord_bot_token
+      - discord_bot_guilds
+    networks:
+      - proxy
+      - backend
+    restart: always
 
   # Phantasm goes here
 
   # Celery / Something Else goes here
+  celery-worker:
+    build: ./phylactery_2
+    command: sh -c "python manage.py collectstatic --noinput && celery -A phylactery worker -l INFO"
+    depends_on:
+      - phylactery
+      - postgres
+      - redis
+    env_file:
+      - ./default.env
+    secrets:
+      - django_secret_key
+      - postgres_password
+      - ucc_email_password
+      - discord_oauth_token
+    volumes:
+      - ./settings_override.py:/app/phylactery/settings_override.py
+    networks:
+      - backend
+    restart: always
+
+  celery-beat:
+    build: ./phylactery_2
+    command: sh -c "python manage.py collectstatic --noinput && celery -A phylactery beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    depends_on:
+      - phylactery
+      - postgres
+      - redis
+    env_file:
+      - ./default.env
+    secrets:
+      - django_secret_key
+      - postgres_password
+      - ucc_email_password
+      - discord_oauth_token
+    volumes:
+      - ./settings_override.py:/app/phylactery/settings_override.py
+    networks:
+      - backend
+    restart: always
 
 
 networks:
@@ -76,5 +130,7 @@ secrets:
     file: secrets/postgres_password.secret
   discord_bot_token:
     file: secrets/discord_bot_token.secret
+  discord_bot_guilds:
+    file: secrets/discord_bot_guilds.secret
   discord_oauth_token:
     file: secrets/discord_oauth_token.secret

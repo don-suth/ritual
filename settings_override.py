@@ -4,13 +4,24 @@ from environs import Env
 env = Env()
 env.read_env()
 
+DEBUG = False
+
 # Allowed Hosts
 ALLOWED_HOSTS = [
-	"beta.phylactery.gozz.id.au",
+	"unigames.asn.au",
 ]
 
 # Django Secret Key
 SECRET_KEY = get_docker_secret("django_secret_key", safe=False)
+
+# Email Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'submission.ucc.asn.au'
+EMAIL_HOST_USER = 'unigames'
+EMAIL_HOST_PASSWORD = get_docker_secret('ucc_email_password', safe=False)
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'Unigames <unigames@ucc.asn.au>'
 
 # Database
 DATABASES = {
@@ -35,3 +46,8 @@ SOCIALACCOUNT_PROVIDERS = {
 		]
 	}
 }
+
+
+# Celery Stuff
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
