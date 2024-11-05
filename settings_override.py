@@ -51,3 +51,6 @@ SOCIALACCOUNT_PROVIDERS = {
 # Celery Stuff
 CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
+
+# Redis Stuff
+REDIS_HOST = "redis"
