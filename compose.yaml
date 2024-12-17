@@ -132,17 +132,17 @@ services:
       - traefik.enable=true
       - traefik.docker.network=proxy
       # Redirect http to https
-      - traefik.http.middlewares.test-ws-redirect-websecure.redirectscheme.scheme=https
-      - traefik.http.routers.test-ws-web.middlewares=test-ws-redirect-websecure
-      - traefik.http.routers.test-ws-web.rule=Host("telepathy.unigames.asn.au")
-      - traefik.http.routers.test-ws-web.entrypoints=web
+      - traefik.http.middlewares.telepathy-redirect-websecure.redirectscheme.scheme=https
+      - traefik.http.routers.telepathy-web.middlewares=telepathy-redirect-websecure
+      - traefik.http.routers.telepathy-web.rule=Host("telepathy.unigames.asn.au")
+      - traefik.http.routers.telepathy-web.entrypoints=web
       # Accept https with letsencrypt
-      - traefik.http.routers.test-ws-websecure.rule=Host("telepathy.unigames.asn.au")
-      - traefik.http.routers.test-ws-websecure.tls.certresolver=letencrypt
-      - traefik.http.routers.test-ws-websecure.tls=true
-      - traefik.http.routers.test-ws-websecure.entrypoints=websecure
+      - traefik.http.routers.telepathy-websecure.rule=Host("telepathy.unigames.asn.au")
+      - traefik.http.routers.telepathy-websecure.tls.certresolver=letencrypt
+      - traefik.http.routers.telepathy-websecure.tls=true
+      - traefik.http.routers.telepathy-websecure.entrypoints=websecure
       # Port
-      - traefik.http.services.test-ws-websecure.loadbalancer.server.port=80
+      - traefik.http.services.telepathy-websecure.loadbalancer.server.port=80
     secrets:
       - telepathy_token
     restart: always
