@@ -4,3 +4,6 @@
 [submodule "lich"]
 	path = lich
 	url = https://github.com/don-suth/lich
+[submodule "telepathy"]
+	path = telepathy
+	url = https://github.com/don-suth/telepathy
