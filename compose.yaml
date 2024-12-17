@@ -118,6 +118,33 @@ services:
       - backend
     restart: always
 
+  telepathy:
+    build: ./telepathy
+    networks:
+      - proxy
+      - backend
+    depends_on:
+      - redis
+    labels:
+      # Traefik
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      # Redirect http to https
+      - traefik.http.middlewares.test-ws-redirect-websecure.redirectscheme.scheme=https
+      - traefik.http.routers.test-ws-web.middlewares=test-ws-redirect-websecure
+      - traefik.http.routers.test-ws-web.rule=Host("telepathy.unigames.asn.au")
+      - traefik.http.routers.test-ws-web.entrypoints=web
+      # Accept https with letsencrypt
+      - traefik.http.routers.test-ws-websecure.rule=Host("telepathy.unigames.asn.au")
+      - traefik.http.routers.test-ws-websecure.tls.certresolver=letencrypt
+      - traefik.http.routers.test-ws-websecure.tls=true
+      - traefik.http.routers.test-ws-websecure.entrypoints=websecure
+      # Port
+      - traefik.http.services.test-ws-websecure.loadbalancer.server.port=80
+    secrets:
+      - telepathy_token
+    restart: always
+
 
 networks:
   proxy:
@@ -137,3 +164,5 @@ secrets:
     file: secrets/discord_bot_guilds.secret
   discord_oauth_token:
     file: secrets/discord_oauth_token.secret
+  telepathy_token:
+    file: secrets/telepathy_token.secret
