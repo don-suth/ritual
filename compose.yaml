@@ -138,7 +138,7 @@ services:
       - traefik.http.routers.telepathy-web.entrypoints=web
       # Accept https with letsencrypt
       - traefik.http.routers.telepathy-websecure.rule=Host("telepathy.unigames.asn.au")
-      - traefik.http.routers.telepathy-websecure.tls.certresolver=letencrypt
+      - traefik.http.routers.telepathy-websecure.tls.certresolver=letsencrypt
       - traefik.http.routers.telepathy-websecure.tls=true
       - traefik.http.routers.telepathy-websecure.entrypoints=websecure
       # Port
