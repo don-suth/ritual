@@ -125,6 +125,8 @@ services:
       - backend
     depends_on:
       - redis
+    env_file:
+      - ./default.env
     labels:
       # Traefik
       - traefik.enable=true
