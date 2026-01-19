@@ -9,6 +9,7 @@ DEBUG = False
 # Allowed Hosts
 ALLOWED_HOSTS = [
 	"unigames.asn.au",
+	"unigames-host.ucc.asn.au"
 ]
 
 # Django Secret Key
