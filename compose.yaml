@@ -10,6 +10,7 @@ services:
       - backend
     labels:
       # Traefik
+      - "traefik.enable=true"
       - "traefik.http.routers.phylactery-web.rule=Host(`unigames-host.ucc.asn.au`)"
       - "traefik.http.routers.phylactery-web.entrypoints=web"
       # Port
@@ -119,6 +120,7 @@ services:
       - ./default.env
     labels:
       # Traefik
+      - "traefik.enable=true"
       - "traefik.http.routers.telepathy-web.rule=Host(`unigames-host.ucc.asn.au`) && PathPrefix(`/ws/`)"
       - "traefik.http.routers.telepathy-web.entrypoints=web"
       # Port
