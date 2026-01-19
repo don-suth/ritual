@@ -45,7 +45,7 @@ services:
     secrets:
       - postgres_password
     volumes:
-      - /mnt/persistent/ritual/database/:/var/lib/postgresql/data
+      - /mnt/persistent/ritual/database/:/var/lib/postgresql
     restart: always
 
   # Lich goes here
