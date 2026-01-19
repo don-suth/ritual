@@ -4,7 +4,7 @@ from environs import Env
 env = Env()
 env.read_env()
 
-DEBUG = False
+DEBUG = True
 
 # Allowed Hosts
 ALLOWED_HOSTS = [
