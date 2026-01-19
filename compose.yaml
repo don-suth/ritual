@@ -64,6 +64,9 @@ services:
     networks:
       - proxy
       - backend
+    labels:
+      # Traefik
+      - "traefik.enable=false"
     restart: always
 
   # Phantasm goes here
@@ -87,6 +90,9 @@ services:
       - ./settings_override.py:/app/phylactery/settings_override.py
     networks:
       - backend
+    labels:
+      # Traefik
+      - "traefik.enable=false"
     restart: always
 
   celery-beat:
@@ -107,6 +113,9 @@ services:
       - ./settings_override.py:/app/phylactery/settings_override.py
     networks:
       - backend
+    labels:
+      # Traefik
+      - "traefik.enable=false"
     restart: always
 
   telepathy:
