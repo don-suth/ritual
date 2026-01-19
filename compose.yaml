@@ -10,10 +10,10 @@ services:
       - backend
     labels:
       # Traefik
-      - "traefik.http.routers.telepathy-web.rule=Host(`unigames-host.ucc.asn.au`)"
-      - "traefik.http.routers.telepathy-web.entrypoints=web"
+      - "traefik.http.routers.phylactery-web.rule=Host(`unigames-host.ucc.asn.au`)"
+      - "traefik.http.routers.phylactery-web.entrypoints=web"
       # Port
-      - "traefik.http.services.telepathy-web.loadbalancer.server.port=80"
+      - "traefik.http.services.phylactery-web.loadbalancer.server.port=80"
     secrets:
       - django_secret_key
       - ucc_email_password
