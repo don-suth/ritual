@@ -14,7 +14,7 @@ services:
       - "traefik.http.routers.phylactery-web.rule=Host(`unigames.asn.au`)"
       - "traefik.http.routers.phylactery-web.entrypoints=websecure"
       - "traefik.http.routers.phylactery-web.tls=true"
-      - "traefik.http.routers.phylactery-web.tld.certresolver=le"
+      - "traefik.http.routers.phylactery-web.tls.certresolver=le"
       # Port
       - "traefik.http.services.phylactery-web.loadbalancer.server.port=80"
     secrets:
