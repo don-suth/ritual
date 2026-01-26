@@ -11,8 +11,10 @@ services:
     labels:
       # Traefik
       - "traefik.enable=true"
-      - "traefik.http.routers.phylactery-web.rule=Host(`unigames-host.ucc.asn.au`)"
-      - "traefik.http.routers.phylactery-web.entrypoints=web"
+      - "traefik.http.routers.phylactery-web.rule=Host(`unigames.asn.au`)"
+      - "traefik.http.routers.phylactery-web.entrypoints=websecure"
+      - "traefik.http.routers.phylactery-web.tls=true"
+      - "traefik.http.routers.phylactery-web.tld.certresolver=le"
       # Port
       - "traefik.http.services.phylactery-web.loadbalancer.server.port=80"
     secrets:
@@ -130,8 +132,10 @@ services:
     labels:
       # Traefik
       - "traefik.enable=true"
-      - "traefik.http.routers.telepathy-web.rule=Host(`unigames-host.ucc.asn.au`) && PathPrefix(`/ws/`)"
-      - "traefik.http.routers.telepathy-web.entrypoints=web"
+      - "traefik.http.routers.telepathy-web.rule=Host(`telepathy.unigames.asn.au`)"
+      - "traefik.http.routers.telepathy-web.entrypoints=websecure"
+      - "traefik.http.routers.telepathy-web.tls=true"
+      - "traefik.http.routers.telepathy-web.tls.certresolver=le"
       # Port
       - "traefik.http.services.telepathy-web.loadbalancer.server.port=80"
     secrets:
