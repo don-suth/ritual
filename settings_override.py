@@ -4,12 +4,11 @@ from environs import Env
 env = Env()
 env.read_env()
 
-DEBUG = True
+DEBUG = False
 
 # Allowed Hosts
 ALLOWED_HOSTS = [
 	"unigames.asn.au",
-	"unigames-host.ucc.asn.au"
 ]
 
 # Django Secret Key
