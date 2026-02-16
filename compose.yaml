@@ -9,21 +9,14 @@ services:
       - proxy
       - backend
     labels:
-      # Traefik:
-      - traefik.enable=true
-      - traefik.docker.network=proxy
-      # Redirect http to https
-      - traefik.http.middlewares.phylactery-redirect-websecure.redirectscheme.scheme=https
-      - traefik.http.routers.phylactery-web.middlewares=phylactery-redirect-websecure
-      - traefik.http.routers.phylactery-web.rule=Host("unigames.asn.au")
-      - traefik.http.routers.phylactery-web.entrypoints=web
-      # Accept https with letsencrypt
-      - traefik.http.routers.phylactery-websecure.rule=Host("unigames.asn.au")
-      - traefik.http.routers.phylactery-websecure.tls.certresolver=letsencrypt
-      - traefik.http.routers.phylactery-websecure.tls=true
-      - traefik.http.routers.phylactery-websecure.entrypoints=websecure
+      # Traefik
+      - "traefik.enable=true"
+      - "traefik.http.routers.phylactery-web.rule=Host(`unigames.asn.au`)"
+      - "traefik.http.routers.phylactery-web.entrypoints=websecure"
+      - "traefik.http.routers.phylactery-web.tls=true"
+      - "traefik.http.routers.phylactery-web.tls.certresolver=le"
       # Port
-      - traefik.http.services.phylactery-websecure.loadbalancer.server.port=80
+      - "traefik.http.services.phylactery-web.loadbalancer.server.port=80"
     secrets:
       - django_secret_key
       - ucc_email_password
@@ -55,7 +48,7 @@ services:
     secrets:
       - postgres_password
     volumes:
-      - /mnt/persistent/ritual/database/:/var/lib/postgresql/data
+      - /mnt/persistent/ritual/database/:/var/lib/postgresql
     restart: always
 
   # Lich goes here
@@ -129,20 +122,13 @@ services:
       - ./default.env
     labels:
       # Traefik
-      - traefik.enable=true
-      - traefik.docker.network=proxy
-      # Redirect http to https
-      - traefik.http.middlewares.telepathy-redirect-websecure.redirectscheme.scheme=https
-      - traefik.http.routers.telepathy-web.middlewares=telepathy-redirect-websecure
-      - traefik.http.routers.telepathy-web.rule=Host("telepathy.unigames.asn.au")
-      - traefik.http.routers.telepathy-web.entrypoints=web
-      # Accept https with letsencrypt
-      - traefik.http.routers.telepathy-websecure.rule=Host("telepathy.unigames.asn.au")
-      - traefik.http.routers.telepathy-websecure.tls.certresolver=letsencrypt
-      - traefik.http.routers.telepathy-websecure.tls=true
-      - traefik.http.routers.telepathy-websecure.entrypoints=websecure
+      - "traefik.enable=true"
+      - "traefik.http.routers.telepathy-web.rule=Host(`telepathy.unigames.asn.au`)"
+      - "traefik.http.routers.telepathy-web.entrypoints=websecure"
+      - "traefik.http.routers.telepathy-web.tls=true"
+      - "traefik.http.routers.telepathy-web.tls.certresolver=le"
       # Port
-      - traefik.http.services.telepathy-websecure.loadbalancer.server.port=80
+      - "traefik.http.services.telepathy-web.loadbalancer.server.port=80"
     secrets:
       - telepathy_token
     restart: always
